@@ -2,20 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
 
 public class Cell : MonoBehaviour
 {
     [SerializeField]
     private bool isMoving = false;
 
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 1.0f;
+    
+    [SerializeField] private float waitTimeBeforeFall = 1.0f;
 
     public PLATFORMTYPE platformType;
+
+    public Material ZMaterial;
+    public Material XMaterial;
+    public Material YMaterial;
+    public Renderer render;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        render = GetComponent<Renderer>();
+        SetMaterial();
     }
 
     // Update is called once per frame
@@ -31,17 +40,17 @@ public class Cell : MonoBehaviour
 
     IEnumerator moveNow()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(waitTimeBeforeFall);
         
         Vector3 originalPos = transform.position;
         if (isMoving == false)
         {
             isMoving = true;
         }
-
-        yield return new WaitForSeconds(3.0f);
-        isMoving = false;
+        
     }
+
+    
 
     private void OnCollisionEnter(Collision other)
     {
@@ -58,9 +67,14 @@ public class Cell : MonoBehaviour
         {
             other.transform.parent = null;
             Debug.Log("Exit");
+            StartCoroutine("StopNow");
         }
     }
-
+    IEnumerator StopNow()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isMoving = false;
+    }
     private void MovePlatform()
     {
         if (isMoving)
@@ -74,15 +88,31 @@ public class Cell : MonoBehaviour
                     transform.position = transform.position + new Vector3(Time.deltaTime * moveSpeed, 0,0);
                     break;
                 case PLATFORMTYPE.YAXIS:
-                    transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed,0);
+                    transform.position = transform.position + new Vector3(0,0,Time.deltaTime * moveSpeed);
                     break;
                 default:
                     break;
             }
         }
     }
-}
 
+    public void SetMaterial()
+    {
+
+        switch (platformType)
+        {
+            case PLATFORMTYPE.VERTICAL:
+                render.material = ZMaterial;
+                break;
+            case PLATFORMTYPE.XAXIS:
+                render.material = XMaterial;
+                break;
+            case PLATFORMTYPE.YAXIS:
+                render.material = YMaterial;
+                break;
+        }
+    }
+}
 
 public enum PLATFORMTYPE
 {
