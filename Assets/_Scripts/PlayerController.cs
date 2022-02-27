@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.paused) return;
         // Camera X_Axis rotation
         cameraFollowPoint.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
         cameraFollowPoint.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensitivity, Vector3.left);

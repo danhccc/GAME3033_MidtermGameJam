@@ -7,6 +7,9 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
+    private bool isColliding = false;
+
+    [SerializeField]
     private bool isMoving = false;
 
     [SerializeField] private float moveSpeed = 1.0f;
@@ -47,7 +50,6 @@ public class Cell : MonoBehaviour
         {
             isMoving = true;
         }
-        
     }
 
     
@@ -81,13 +83,13 @@ public class Cell : MonoBehaviour
         {
             switch (platformType)
             {
-                case PLATFORMTYPE.VERTICAL:
+                case PLATFORMTYPE.YAXIS:
                     transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed,0);
                     break;
                 case PLATFORMTYPE.XAXIS:
                     transform.position = transform.position + new Vector3(Time.deltaTime * moveSpeed, 0,0);
                     break;
-                case PLATFORMTYPE.YAXIS:
+                case PLATFORMTYPE.ZAXIS:
                     transform.position = transform.position + new Vector3(0,0,Time.deltaTime * moveSpeed);
                     break;
                 default:
@@ -101,13 +103,13 @@ public class Cell : MonoBehaviour
 
         switch (platformType)
         {
-            case PLATFORMTYPE.VERTICAL:
+            case PLATFORMTYPE.YAXIS:
                 render.material = ZMaterial;
                 break;
             case PLATFORMTYPE.XAXIS:
                 render.material = XMaterial;
                 break;
-            case PLATFORMTYPE.YAXIS:
+            case PLATFORMTYPE.ZAXIS:
                 render.material = YMaterial;
                 break;
         }
@@ -116,7 +118,7 @@ public class Cell : MonoBehaviour
 
 public enum PLATFORMTYPE
 {
-    VERTICAL,
-    XAXIS,
     YAXIS,
+    XAXIS,
+    ZAXIS,
 }
