@@ -7,6 +7,9 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
+    private bool isColliding = false;
+
+    [SerializeField]
     private bool isMoving = false;
 
     [SerializeField] private float moveSpeed = 1.0f;
@@ -47,7 +50,6 @@ public class Cell : MonoBehaviour
         {
             isMoving = true;
         }
-        
     }
 
     
