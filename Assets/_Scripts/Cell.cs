@@ -7,11 +7,11 @@ using Random = UnityEngine.Random;
 public class Cell : MonoBehaviour
 {
     [SerializeField]
-    private bool isSinking = false;
+    private bool isMoving = false;
 
-    [SerializeField] private float sinkSpeed;
-    
-    
+    [SerializeField] private float moveSpeed;
+
+    public PLATFORMTYPE platformType;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,39 +21,26 @@ public class Cell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isSinking)
-        {
-            Vector3 newPos;
-            newPos.x = transform.position.x;
-            newPos.y = -Time.deltaTime * sinkSpeed;
-            newPos.z = transform.position.z;
-
-            transform.position = transform.position
-                -new Vector3(0, Time.deltaTime * sinkSpeed,0);
-        }
+        MovePlatform();
     }
 
-    public void Sink()
+    public void Move()
     {
-        StartCoroutine("SinkNow");
+        StartCoroutine("moveNow");
     }
 
-    IEnumerator SinkNow()
+    IEnumerator moveNow()
     {
-       
-        
         yield return new WaitForSeconds(1.0f);
         
         Vector3 originalPos = transform.position;
-        if (isSinking == false)
+        if (isMoving == false)
         {
-            isSinking = true;
+            isMoving = true;
         }
 
         yield return new WaitForSeconds(3.0f);
-        isSinking = false;
-        //transform.position = originalPos;
-        //this.gameObject.SetActive(false);
+        isMoving = false;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -61,8 +48,7 @@ public class Cell : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.transform.parent = this.transform;
-            Debug.Log("sinking");
-            Sink();
+            Move();
         }
     }
 
@@ -74,4 +60,33 @@ public class Cell : MonoBehaviour
             Debug.Log("Exit");
         }
     }
+
+    private void MovePlatform()
+    {
+        if (isMoving)
+        {
+            switch (platformType)
+            {
+                case PLATFORMTYPE.VERTICAL:
+                    transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed,0);
+                    break;
+                case PLATFORMTYPE.XAXIS:
+                    transform.position = transform.position + new Vector3(Time.deltaTime * moveSpeed, 0,0);
+                    break;
+                case PLATFORMTYPE.YAXIS:
+                    transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed,0);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+
+public enum PLATFORMTYPE
+{
+    VERTICAL,
+    XAXIS,
+    YAXIS,
 }
