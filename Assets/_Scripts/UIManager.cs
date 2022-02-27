@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         mainmenuPanel.SetActive(false);
         creditPanel.SetActive(true);
+        instructionPanel.SetActive(false);
     }
 
     public void OnBackButtonClicked()
