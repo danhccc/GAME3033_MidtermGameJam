@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pausePanel;
     
-    public void onPauseButtonClicked(InputValue value)
+    public void OnPause(InputValue value)
     {
         Debug.Log("Pressed");
         if (isPaused)
