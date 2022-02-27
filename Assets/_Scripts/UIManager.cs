@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class UIManager : MonoBehaviour
     private GameObject instructionPanel;
     [SerializeField]
     private GameObject creditPanel;
+
+    public static bool isPaused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,4 +58,11 @@ public class UIManager : MonoBehaviour
         Debug.Log("Quit!");
         Application.Quit();
     }
+    
+    public void OnMainMenuButtonClicked()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    
 }
