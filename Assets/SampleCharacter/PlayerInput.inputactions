@@ -248,13 +248,13 @@
             ]
         },
         {
-            "name": "CanAlsoUseToSwitchBetween:",
-            "id": "1a9201ad-85b1-4daa-be3f-64ff3e2b8d60",
+            "name": "UI",
+            "id": "45e152fc-417e-4c73-a3fa-0b50d78ef2dc",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "dd08ddfe-dfd7-4933-a6b3-359e8603d182",
+                    "name": "Click",
+                    "type": "PassThrough",
+                    "id": "cf54f765-0575-4cfd-8eb1-14d52b6802c8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -263,93 +263,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "daa68fd8-74b2-4d70-9486-eec0dfa326b0",
-                    "path": "",
+                    "id": "94eb4b32-5b47-4e84-83c0-28cb471bd41f",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Land (ground)",
-            "id": "34c92916-cd39-4f1f-a6b5-912fcb6cb319",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "030b1076-3d8b-4447-99fa-2192325bf352",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "40b12ed0-b867-48f3-98a4-79c4ccdd7fa8",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Water (swim)",
-            "id": "c478a777-c570-4901-a0d6-991ecf6cbd8f",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "d0c306a2-da15-4193-bea1-20552c60c139",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "edb613da-4cd3-42e2-8a49-21b67bcd74f7",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Air (fly)",
-            "id": "fb56857d-6528-485f-bcff-aa9abd7474a1",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "516c85e6-c76d-4f78-9bf5-2ceb9338feb4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "4f5b3fb6-3d0e-4d0a-8691-38ae3203dd36",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
