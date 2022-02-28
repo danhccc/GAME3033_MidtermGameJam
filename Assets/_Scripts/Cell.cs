@@ -71,7 +71,7 @@ public class Cell : MonoBehaviour
         }
         if (other.gameObject.tag == "Player")
         {
-            //other.transform.parent = this.transform;
+            other.transform.parent = this.transform;
             Move();
         }
 
@@ -83,12 +83,12 @@ public class Cell : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.transform.parent = null;
-            //Debug.Log("Exit");
             StartCoroutine("StopNow");
         }
 
         if (other.gameObject.CompareTag("Cell"))
         {
+            other.transform.parent = null;
             isBlocked = false;
             return;
         }
@@ -104,7 +104,7 @@ public class Cell : MonoBehaviour
     {
         if (isMoving)
         {
-            if (isBlocked) return;
+            //if (isBlocked) return;
             switch (platformType)
             {
                 case PLATFORMTYPE.YAXIS:
