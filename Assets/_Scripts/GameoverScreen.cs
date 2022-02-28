@@ -11,6 +11,8 @@ public class GameoverScreen : MonoBehaviour
 
     public TextMeshProUGUI timeSpent;
 
+    public PlayerController player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +29,21 @@ public class GameoverScreen : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Time.timeScale = 0.0f;
-            gameoverPanel.SetActive(true);
-            timeSpent.text = "???";
+            Gameover();
         }
     }
 
     public void restartLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Level1");
     }
 
+    public void Gameover()
+    {
+        Time.timeScale = 0.0f;
+        gameoverPanel.SetActive(true);
+        timeSpent.text = player.timer.ToString("F2");
+        Cursor.visible = true;
+    }
 }

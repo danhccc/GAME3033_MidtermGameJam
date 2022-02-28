@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour
 
     private InputAction jumpAction;
 
-    
+    public float timer;
+
+    public GameoverScreen gameoverRef;
+    private bool gameIsOver;
+
     [Header("Character variables")]
     public float walkSpeed;
     public float runSpeed;
@@ -58,11 +62,15 @@ public class PlayerController : MonoBehaviour
     {
         startingPosition = transform.position;
         Cursor.visible = false;
+        PauseMenu.paused = false; 
+        gameIsOver = false;
     }
 
     private void Update()
     {
-        if (PauseMenu.paused) return;
+        timer += Time.deltaTime;
+
+        if (PauseMenu.paused || gameIsOver) return;
         // Camera X_Axis rotation
         cameraFollowPoint.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
         cameraFollowPoint.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensitivity, Vector3.left);
@@ -162,6 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Ground") && !isJumping)
             return;
+
         isJumping = false;
         animator.SetBool(isJumpingHash, false);
     }
@@ -172,7 +181,14 @@ public class PlayerController : MonoBehaviour
         {
             resetPosition();
         }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            gameIsOver = true;
+            gameoverRef.Gameover();
+        }
     }
+
 
     private void resetPosition()
     {

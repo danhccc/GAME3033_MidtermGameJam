@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Cell : MonoBehaviour
+public class Cell2 : MonoBehaviour
 {
     [SerializeField]
     private GameObject thisCell;
@@ -16,13 +16,11 @@ public class Cell : MonoBehaviour
     private bool isMoving = false;
 
     [SerializeField] private float moveSpeed = 1.0f;
-    
+
     [SerializeField] private float waitTimeBeforeFall = 0.5f;
 
     private Vector3 originPosition;
     private Vector3 originScale;
-    public bool resetPosition;
-    private bool startReset;
 
     public PLATFORMTYPE platformType;
 
@@ -39,7 +37,7 @@ public class Cell : MonoBehaviour
         originPosition = transform.position;
         originScale = transform.localScale;
         rigid = GetComponent<Rigidbody>();
-        render = GetComponent<Renderer>();
+        render = GetComponentInChildren<Renderer>();
         SetMaterial();
     }
 
@@ -47,9 +45,6 @@ public class Cell : MonoBehaviour
     void Update()
     {
         MovePlatform();
-        if (resetPosition && startReset)
-            resetToStart();
-
     }
 
     public void Move()
@@ -62,13 +57,13 @@ public class Cell : MonoBehaviour
         yield return new WaitForSeconds(waitTimeBeforeFall);
         isMoving = true;
 
-//         if (isMoving == false)
-//         {
-//             isMoving = true;
-//         }
+        //         if (isMoving == false)
+        //         {
+        //             isMoving = true;
+        //         }
     }
 
-    
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -82,12 +77,9 @@ public class Cell : MonoBehaviour
             other.transform.parent = this.transform;
             Move();
         }
-        if (other.gameObject.CompareTag("Finish"))
-        {
 
-        }
     }
-    
+
 
     private void OnCollisionExit(Collision other)
     {
@@ -95,7 +87,6 @@ public class Cell : MonoBehaviour
         {
             other.transform.parent = null;
             StartCoroutine("StopNow");
-            startReset = true;
         }
 
         if (other.gameObject.CompareTag("Cell"))
@@ -120,42 +111,19 @@ public class Cell : MonoBehaviour
             switch (platformType)
             {
                 case PLATFORMTYPE.YAXIS:
-                    transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed,0);
+                    transform.position = transform.position + new Vector3(0, Time.deltaTime * moveSpeed, 0);
                     break;
                 case PLATFORMTYPE.XAXIS:
-                    transform.position = transform.position + new Vector3(Time.deltaTime * moveSpeed, 0,0);
+                    transform.position = transform.position + new Vector3(Time.deltaTime * moveSpeed, 0, 0);
                     break;
                 case PLATFORMTYPE.ZAXIS:
-                    transform.position = transform.position + new Vector3(0,0,Time.deltaTime * moveSpeed);
-                    //transform.localScale = new Vector3(Time.deltaTime /10, originScale.y, Time.deltaTime/10);
+                    transform.position = transform.position + new Vector3(0, 0, Time.deltaTime * moveSpeed);
+                    thisCell.transform.localScale = new Vector3(Time.deltaTime /10, originScale.y, Time.deltaTime/10);
                     break;
                 default:
                     break;
             }
         }
-    }
-
-    private void resetToStart()
-    {
-        
-        if (Vector3.Distance(transform.position, originPosition) >= 0.9f)
-        {
-            switch (platformType)
-            {
-                case PLATFORMTYPE.YAXIS:
-                    transform.position = transform.position - new Vector3(0, Time.deltaTime * moveSpeed, 0);
-                    break;
-                case PLATFORMTYPE.XAXIS:
-                    transform.position = transform.position - new Vector3(Time.deltaTime * moveSpeed, 0, 0);
-                    break;
-                case PLATFORMTYPE.ZAXIS:
-                    transform.position = transform.position - new Vector3(0, 0, Time.deltaTime * moveSpeed);
-                    break;
-                default:
-                    break;
-            }
-        }
-        else startReset = false;
     }
 
     public void SetMaterial()
@@ -174,11 +142,4 @@ public class Cell : MonoBehaviour
                 break;
         }
     }
-}
-
-public enum PLATFORMTYPE
-{
-    YAXIS,
-    XAXIS,
-    ZAXIS,
 }
